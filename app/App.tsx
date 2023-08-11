@@ -2,7 +2,7 @@ import React from 'react'
 import { AppNavigator } from './navigators'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { Provider } from 'react-redux'
-import store from './redux/store'
+import store from './Redux/store'
 
 export default function App() {
 

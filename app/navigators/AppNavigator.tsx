@@ -12,8 +12,8 @@ import { useColorScheme } from 'react-native'
 import { WelcomeScreen} from '../screens'
 import { colors } from '../theme'
 import { TabNavigator, TabParamList } from './tabNavigator'
-import { HomeScreen } from '../screens/HomeScreen'
-import SplashScreen from '../screens/SplashScreen'
+// import { HomeScreen } from '../screens/HomeScreen'
+// import SplashScreen from '../screens/SplashScreen'
 
 
 export type AppStackParamList = {
@@ -22,6 +22,7 @@ export type AppStackParamList = {
   Settings: undefined,
   HomeScreen: undefined,
   SplashScreen: undefined,
+  Output: undefined,
 }
 
 /**
@@ -46,12 +47,12 @@ const AppStack = () => {
                 gestureEnabled: false,  // Disable the gesture (swiping) to go back
                 headerLeft: () => null // Remove the back button from the header
             }}
-            initialRouteName={'SplashScreen'}
+            initialRouteName={'Tabs'}
         >
             <Stack.Screen name="Tabs" component={TabNavigator} />
             <Stack.Screen name="Welcome" component={WelcomeScreen} />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen name="SplashScreen" component={SplashScreen} />
+            {/* <Stack.Screen name="HomeScreen" component={HomeScreen} /> */}
+            {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
         </Stack.Navigator>
     )
 }

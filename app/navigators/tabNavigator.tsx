@@ -2,14 +2,16 @@ import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigatio
 import { CompositeScreenProps } from '@react-navigation/native'
 import React, { ComponentType, FC } from 'react'
 
-import { WelcomeScreen, Settings } from '../screens'
+import { Settings } from '../screens'
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { TextStyle, ViewStyle } from 'react-native/types'
+import { Output } from '../screens/Output'
 
 export type TabParamList = {
   Settings: undefined,
   Welcome: undefined,
+  Output: undefined,
 }
 
 
@@ -20,8 +22,8 @@ export type TabScreenProps<T extends keyof TabParamList> = CompositeScreenProps<
 
 
 type ScreenComponentType =
-  | FC<TabScreenProps<'Welcome'>>
   | FC<TabScreenProps<'Settings'>>
+  | FC<TabScreenProps<'Output'>>
   | ComponentType
 
 interface Screen {
@@ -32,13 +34,13 @@ interface Screen {
 // ! Adjust when you know the Types for this screen....
 const screens: Screen[] = [
     {
-        name: 'Welcome',
-        component: WelcomeScreen as unknown as FC<TabScreenProps<'Welcome'>>,
+        name: 'Output',
+        component: Output as unknown as FC<TabScreenProps<'Output'>>,
     },
     {
         name: 'Settings',
         component: Settings as unknown as FC<TabScreenProps<'Settings'>>,
-    }
+    },
 ]
 
 const Tab = createBottomTabNavigator<TabParamList>()
