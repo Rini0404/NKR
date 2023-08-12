@@ -24,9 +24,8 @@ export const Output: React.FC<OutputProps> = () => {
         } else if (!isRecording && !wasStoppedManually) {
             startRecording()
         }
-    }, [isPermissionGranted, requestPermission, isRecording, startRecording, wasStoppedManually])
-  
-  
+    }, [isPermissionGranted])
+    
 
     // Handle errors, if any
     React.useEffect(() => {
@@ -58,6 +57,9 @@ export const Output: React.FC<OutputProps> = () => {
                     <Text>Play</Text>
                 </TouchableOpacity>
             )}
+
+            {error && <Text>Error: {error.message}</Text>}
+
         </View>
     )
 }

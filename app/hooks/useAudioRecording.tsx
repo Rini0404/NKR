@@ -7,6 +7,7 @@ const useAudioRecording = () => {
     const [recording, setRecording] = useState<Audio.Recording | null>(null)
     const [isRecording, setIsRecording] = useState(false)
     const [error, setError] = useState<Error | null>(null)
+    const [wasStoppedManually, setWasStoppedManually] = useState(false)
 
     const startRecording = async () => {
         try {
@@ -21,7 +22,6 @@ const useAudioRecording = () => {
             const recording = new Audio.Recording()
             await recording.prepareToRecordAsync(Audio.RecordingOptionsPresets.HIGH_QUALITY)
             await recording.startAsync()
-          
             setRecording(recording)
             setIsRecording(true)
         } catch (err: unknown) {
@@ -33,8 +33,7 @@ const useAudioRecording = () => {
             }
         }
     }
-  
-    
+
 
     const [sound, setSound] = useState<Audio.Sound | null>(null)
 
@@ -45,9 +44,10 @@ const useAudioRecording = () => {
             const uri = recording.getURI()
 
             console.log('Recording stopped and stored at', uri)
-            
+            const { sound } = await recording.createNewLoadedSoundAsync()
+            setSound(sound)
             setIsRecording(false)
-            
+            setWasStoppedManually(true)
             
 
         }
@@ -55,19 +55,16 @@ const useAudioRecording = () => {
     
     
     const playRecording = async () => {
+        console.log('Attempting to play sound')
         if (sound) {
+            console.log('Sound is available')
             await sound.playAsync()
+            console.log('Playing Sound')
+        } else {
+            console.log('No sound available')
         }
-    }
+    }    
 
-    // Cleanup: stop recording if component is unmounted
-    useEffect(() => {
-        return () => {
-            if (isRecording && recording) {
-                recording.stopAndUnloadAsync()
-            }
-        }
-    }, [recording, isRecording])
 
     return {
         recording,
@@ -75,6 +72,7 @@ const useAudioRecording = () => {
         startRecording,
         stopRecording,
         playRecording,
+        wasStoppedManually,
         error
     }
 }
