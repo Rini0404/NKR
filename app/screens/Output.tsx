@@ -60,6 +60,7 @@ export const Output: React.FC<OutputProps> = () => {
             )}
 
             <SpeechToText 
+                text={'Hello World!'}
             />
 
             {error && <Text>Error: {error.message}</Text>}

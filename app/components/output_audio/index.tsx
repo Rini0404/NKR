@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import useSocketIo from '../../hooks/useConnectSocket'
+import { SOCKET_URL } from '../../api/baseUrl';
 
 type SpeechToTextProps = {
     text: string;
@@ -8,7 +9,7 @@ type SpeechToTextProps = {
 
 export const SpeechToText: React.FC<SpeechToTextProps> = () => {
 
-    const { message } = useSocketIo('ws://192.168.86.41:3000')
+    const { message } = useSocketIo(SOCKET_URL)
 
     return (
         <View style={{ paddingTop: 20,  justifyContent: 'center', alignItems: 'center' }}>

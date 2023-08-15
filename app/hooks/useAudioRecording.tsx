@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Audio } from 'expo-av'
+import { sendAudioToServer } from '../utils/sendAudio'
 
 
 
@@ -8,6 +9,18 @@ const useAudioRecording = () => {
     const [isRecording, setIsRecording] = useState(false)
     const [error, setError] = useState<Error | null>(null)
     const [wasStoppedManually, setWasStoppedManually] = useState(false)
+
+    
+    const recordChunk = async (rec: Audio.Recording) => {
+        console.log('recordChunk called')
+        await rec.stopAndUnloadAsync()
+
+        const uri = rec.getURI()
+        sendAudioToServer(uri as string)
+
+        // Start a new recording immediately
+        await startRecording()
+    }
 
     const startRecording = async () => {
         try {
@@ -22,6 +35,11 @@ const useAudioRecording = () => {
             const recording = new Audio.Recording()
             await recording.prepareToRecordAsync(Audio.RecordingOptionsPresets.HIGH_QUALITY)
             await recording.startAsync()
+            
+            // Set a timeout to stop this recording after a short duration
+            setTimeout(() => recordChunk(recording), 3000) // pass the recording object
+            
+            
             setRecording(recording)
             setIsRecording(true)
         } catch (err: unknown) {
