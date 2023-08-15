@@ -3,6 +3,7 @@ import React from 'react'
 import { AppStackScreenProps } from '../navigators'
 import useAudioPermission from '../hooks/useAskPermission'
 import useAudioRecording from '../hooks/useAudioRecording'
+import { SpeechToText } from '../components/output_audio'
 
 interface OutputProps extends AppStackScreenProps<'Output'> {}
 
@@ -57,6 +58,9 @@ export const Output: React.FC<OutputProps> = () => {
                     <Text>Play</Text>
                 </TouchableOpacity>
             )}
+
+            <SpeechToText 
+            />
 
             {error && <Text>Error: {error.message}</Text>}
 
