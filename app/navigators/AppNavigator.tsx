@@ -11,7 +11,7 @@ import React from 'react'
 import { useColorScheme } from 'react-native'
 import { WelcomeScreen} from '../screens'
 import { colors } from '../theme'
-import { TabNavigator, TabParamList } from './TabNavigator'
+import { TabNavigator, TabParamList } from './tabNavigator'
 // import { HomeScreen } from '../screens/HomeScreen'
 // import SplashScreen from '../screens/SplashScreen'
 

@@ -16,8 +16,8 @@ function useSocketIo(url: Url) {
             console.log('connected')
         })
 
-        socketConnection.on('message', (message: string) => {
-            console.log('message received: ', message)
+        socketConnection.on('transcription', (message: string) => {
+            
             setMessage(message)
         }
         )

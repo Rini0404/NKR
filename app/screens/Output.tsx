@@ -13,16 +13,13 @@ export const Output: React.FC<OutputProps> = () => {
     const { 
         isRecording, 
         startRecording, 
-        stopRecording, 
-        playRecording, 
         error,
-        wasStoppedManually
     } = useAudioRecording()
   
     React.useEffect(() => {
         if (!isPermissionGranted) {
             requestPermission()
-        } else if (!isRecording && !wasStoppedManually) {
+        } else if (!isRecording) {
             startRecording()
         }
     }, [isPermissionGranted])
@@ -37,33 +34,10 @@ export const Output: React.FC<OutputProps> = () => {
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            {isRecording ? (
-                <TouchableOpacity
-                    style={{
-                        backgroundColor: 'red',
-                        padding: 16,
-                        borderRadius: 8,
-                    }}
-                    onPress={stopRecording} >
-                    <Text>Stop</Text>
-                </TouchableOpacity>
-            ) : (
-                <TouchableOpacity
-                    style={{
-                        backgroundColor: 'red',
-                        padding: 16,
-                        borderRadius: 8,
-                    }}
-                    onPress={playRecording} >
-                    <Text>Play</Text>
-                </TouchableOpacity>
-            )}
 
             <SpeechToText 
                 text={'Hello World!'}
             />
-
-            {error && <Text>Error: {error.message}</Text>}
 
         </View>
     )
